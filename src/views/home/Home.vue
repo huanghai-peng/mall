@@ -23,10 +23,11 @@
     import TabControl from 'components/content/tabControl/TabControl'
     import GoodsList from 'components/content/goods/GoodsList'
     import Scroll from 'components/common/scroll/Scroll'
-    import BackTop from 'components/content/backtop/BackTop'
 
     import {homeMutildata,homeGoods} from 'network/home.js'
+
     import {debounce} from 'common/utils.js'
+    import {itemListener,BackTopMixins} from 'common/mixins'
 export default {
     data(){
         return {
@@ -38,12 +39,12 @@ export default {
                 'sell':{page:0,list:[]}
             },
             currentType:'pop',
-            isShowBack:false,
             tabOffsetTop:0,
             showTabControl:false,
             saveY:0
         }
     },
+    mixins:[itemListener,BackTopMixins],
     components:{
         HomeSwiper,
         Recommend,
@@ -51,8 +52,7 @@ export default {
         NavBar,
         TabControl,
         GoodsList,
-        Scroll,
-        BackTop
+        Scroll
     },
     created(){
         // 1.请求多个数据
@@ -63,25 +63,24 @@ export default {
         this.homeGoods('sell')
     },
     mounted(){
-        // 1.图片加载完成后做的事件监听
-        const refresh = debounce(this.$refs.scroll.refresh,50);
-        this.$bus.$on('itemImgLoad',()=>{
-            refresh();
-        })
-        
+        console.log('home')
     },
     destroyed(){
         console.log('home destroyed');
     },
     activated(){
         // 回到首页时，将保存页面滑动到之前离开时的位置
-        this.$refs.scroll.scrollTo(0,this.saveY,0);
+        this.$refs.scroll && this.$refs.scroll.scrollTo(0,this.saveY,0);
 
-        this.$refs.scroll.refresh();
+        this.$refs.scroll && this.$refs.scroll.refresh();
     },
     deactivated(){
-        // 离开首页时，保存当前saveY的位置
+        
+        // 1.离开首页时，保存当前saveY的位置
         this.saveY = this.$refs.scroll.getScrollY();
+
+        // 离开首页时，取消图片监听
+        // this.$bus.$off('itemImgLoad',this.itemListner);
     },
     computed:{
         showGoods(){
@@ -107,12 +106,9 @@ export default {
             this.$refs.tabControl1.currentIndex = index;
             this.$refs.tabControl2.currentIndex = index;
         },
-        backClick(){
-            this.$refs.scroll.scrollTo(0,0);
-        },
         scrollClick(option){
             // 1.显示和隐藏isShowBack图标
-            this.isShowBack= -option.y > 1000 
+            this.showBackTop(option);
 
             // 2.显示和隐藏tabControl
             this.showTabControl = -option.y > this.tabOffsetTop
@@ -136,7 +132,7 @@ export default {
             );
         },
         homeGoods(type){
-            const page=this.goods[type].page+1;
+            let page=this.goods[type].page+1;
             homeGoods(type,page).then(res=>{
                 this.goods[type].list.push(...res.data.list);
                 this.goods[type].page+=1
@@ -149,7 +145,7 @@ export default {
 <style scoped>
     #home {
         position: relative;
-        margin-top: 44px;
+        /* margin-top: 44px; */
         height: 100vh;
     }
     .home-nav {
