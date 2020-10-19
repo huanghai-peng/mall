@@ -50,6 +50,9 @@ export default {
   .detail-box>div {
     flex: 1;
   }
+  .detail-box>div>i {
+      margin-left: 20px;
+  }
   .detail-buy {
     background-color: red;
   }
