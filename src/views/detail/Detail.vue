@@ -73,7 +73,6 @@ export default {
 
     // 获取详情页的多条数据
     getDetail(this.iid).then(res=>{
-      console.log(res);
       const data = res.result;
       // 1.保存topImages的数据
       this.topImages = data.itemInfo.topImages;
@@ -175,7 +174,6 @@ export default {
     
   },
   destroyed(){
-    console.log('detail destroy');
     this.$bus.$off('itemImgLoad',this.itemListner)
   }
 }

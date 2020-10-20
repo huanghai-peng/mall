@@ -63,7 +63,7 @@ export default {
         this.homeGoods('sell')
     },
     mounted(){
-        console.log('home')
+        // console.log('home')
     },
     destroyed(){
         console.log('home destroyed');
