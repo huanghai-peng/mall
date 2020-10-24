@@ -12,9 +12,9 @@
 <script>
     import NavBar from 'components/common/navbar/NavBar'
 
-    import LoginBar from 'views/profile/profileCops/LoginBar'
-    import CountBalance from 'views/profile/profileCops/CountBalance'
-    import normalListView from 'views/profile/profileCops/normalListView'
+    import LoginBar from 'views/profile/childCops/LoginBar'
+    import CountBalance from 'views/profile/childCops/CountBalance'
+    import normalListView from 'views/profile/childCops/normalListView'
 
 export default {
     data(){

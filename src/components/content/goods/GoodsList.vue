@@ -13,7 +13,7 @@ export default {
     goods:{
       type:Array,
       default(){
-        return []
+          return []
       }
     }
   }
