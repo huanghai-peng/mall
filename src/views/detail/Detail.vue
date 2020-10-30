@@ -180,10 +180,15 @@ export default {
 </script>
 <style scoped>
   #detail {
-    height: 100vh;
-    position: relative;
+    /* height: 100vh; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 8;
     background-color: #fff;
+
   }
   .detail-nav-bar {
     position: relative;
@@ -191,6 +196,6 @@ export default {
     z-index: 8;
   }
   .content {
-    height: calc(100% - 44px - 49px);
+    height: calc(100vh - 44px - 49px);
   }
 </style>
