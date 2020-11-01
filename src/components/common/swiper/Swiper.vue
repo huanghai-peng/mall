@@ -25,7 +25,7 @@
       //延迟多久开始轮播
       animDuration: {
         type: Number,
-        default: 200
+        default: 300
       },
       //默认用户滑动到4/1图片就跳过去
       moveRatio: {
@@ -55,7 +55,7 @@
 
           // 2.开启定时器
           this.startTimer();
-        }, 500)
+        }, 3000)
       })
     },
     methods: {
