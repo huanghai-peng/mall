@@ -4,6 +4,7 @@
       <img :src="item" alt="">
     </swiper-item>
   </swiper>
+
 </template>
 <script>
 import {Swiper, SwiperItem} from 'components/common/swiper/Swiper.js'

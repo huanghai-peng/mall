@@ -12,5 +12,9 @@ module.exports = {
     },
     devServer: {
         disableHostCheck: true
-    }
+    },
+    publicPath: process.env.NODE_ENV === 'production' ? '' : '/',
+    indexPath: 'index.html',
+    outputDir: process.env.outputDir || 'dist',
+    assetsDir: 'static'
 }

@@ -6,7 +6,7 @@
         <tab-control  :title="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl1" class="tabControl" v-show="showTabControl"></tab-control>
         <scroll class="content" ref="scroll" :probe-type="3" @scrollClick="scrollClick" :pull-up-load="true" @pullingUp="loadMove">
             <home-swiper :banner="banner" @swiperImgLoad="swiperImgLoad"></home-swiper>
-            <recommend :recommends="recommends"></recommend>
+            <recommend :recommends="recommends" @reImageLoad="reImageLoad"></recommend>
             <feature-view ></feature-view>
             <tab-control  :title="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl2" ></tab-control>
             <goods-list :goods="showGoods"></goods-list>
@@ -39,9 +39,10 @@ export default {
                 'sell':{page:0,list:[]}
             },
             currentType:'pop',
-            tabOffsetTop:0,
+            tabOffsetTop:630,
             showTabControl:false,
-            saveY:0
+            saveY:0,
+            reImageLoad1:false
         }
     },
     mixins:[itemListener,BackTopMixins],
@@ -63,7 +64,6 @@ export default {
         this.homeGoods('sell')
     },
     mounted(){
-        // console.log('home')
     },
     destroyed(){
         console.log('home destroyed');
@@ -116,9 +116,11 @@ export default {
         loadMove(){
             this.homeGoods(this.currentType);
         },
+        reImageLoad(){
+            this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop; 
+        },
         swiperImgLoad(){
-            // 2.获取tabControl的offsetTop的值
-            this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
+            this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop; 
         },
         /**
          * 下面是网络请求的代码

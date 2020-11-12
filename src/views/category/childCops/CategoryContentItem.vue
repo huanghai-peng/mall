@@ -27,6 +27,7 @@
     .category-content-item {
         text-align: center;
         font-size: 12px;
+        width: 100px;
     }
     .item-img {
         width: 60px;
