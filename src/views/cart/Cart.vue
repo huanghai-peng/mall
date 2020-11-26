@@ -14,6 +14,11 @@
     import {mapGetters} from 'vuex'
 export default {
     name:'Cart',
+    data(){
+        return {
+            
+        }
+    },
     components:{
         navBar,
         cartList,

@@ -10,6 +10,7 @@
             <feature-view ></feature-view>
             <tab-control  :title="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl2" ></tab-control>
             <goods-list :goods="showGoods"></goods-list>
+            <div class="refreshMsg" v-show="isShowBack">上拉加载更多</div>
         </scroll>
         <back-top @click.native="backClick" v-show="isShowBack"></back-top>
     </div>
@@ -180,5 +181,15 @@ export default {
     .tabControl {
         position: relative;
         z-index: 8;
+    }
+
+    .refreshMsg {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        height: 40px;
+        line-height: 40px;
+        font-style: oblique;
+        color: rgba(0, 0, 0, .5);
     }
 </style>

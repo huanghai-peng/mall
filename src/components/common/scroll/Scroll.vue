@@ -27,7 +27,10 @@ export default {
     this.bscroll = new BScroll(this.$refs.wrapper,{
       click:true,
       probeType:this.probeType,
-      pullUpLoad:this.pullUpLoad
+      pullUpLoad:{
+          boolean:this.pullUpLoad,
+          threshold:-70
+      }
     })
 
     this.bscroll.on('scroll',(option)=>{
