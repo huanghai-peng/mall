@@ -3,12 +3,10 @@
     <div class="recommend-item"
          v-for="(item,i) in recommends"
          :key="i">
-      <a :href="item.link">
         <img :src="item.image"
              alt=""
              @load="recommendLoad">
         <div>{{item.title}}</div>
-      </a>
     </div>
   </div>
 </template>
