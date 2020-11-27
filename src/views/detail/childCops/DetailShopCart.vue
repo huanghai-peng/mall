@@ -3,7 +3,7 @@
        v-if="isShow">
     <div class="container">
       <div class="message">
-        <img :src="showImg"
+        <img v-lazy="showImg"
              alt="">
         <div class="detail-msg">
           <div class="price">{{currency}}{{handerPrice}}</div>
@@ -14,43 +14,47 @@
              @click="closeClick">X</div>
       </div>
 
-      <div class="colour-info">
-        <div>{{shoppingCartInfo.props && shoppingCartInfo.props[0].label}}</div>
-        <div class="colour-list">
-          <div class="colour-item"
-               v-for="(item,index) in shoppingCartInfo.props[0].list"
-               :key="index"
-               :class="{active:currentIndex1==index}"
-               @click="colourClick(index,item)">{{item.name}}</div>
-        </div>
-        <div>{{shoppingCartInfo.props[1].label}}</div>
-        <div class="colour-list">
-          <div class="colour-item"
-               v-for="(item,index) in shoppingCartInfo.props[1].list"
-               :key="index"
-               :class="{active:currentIndex2==index}"
-               @click="sizeClick(index,item.name)">{{item.name}}</div>
-        </div>
-      </div>
+      <scroll class="scroll">
+          <div class="colour-info">
+            <div>{{shoppingCartInfo.props && shoppingCartInfo.props[0].label}}</div>
+            <div class="colour-list">
+              <div class="colour-item"
+                   v-for="(item,index) in shoppingCartInfo.props[0].list"
+                   :key="index"
+                   :class="{active:currentIndex1==index}"
+                   @click="colourClick(index,item)">{{item.name}}</div>
+            </div>
+            <div>{{shoppingCartInfo.props[1].label}}</div>
+            <div class="colour-list">
+              <div class="colour-item"
+                   v-for="(item,index) in shoppingCartInfo.props[1].list"
+                   :key="index"
+                   :class="{active:currentIndex2==index}"
+                   @click="sizeClick(index,item.name)">{{item.name}}</div>
+            </div>
+          </div>
 
-      <div class="shop">
-        <div class="count">数量:</div>
-        <div class="shop-count">
-          <div class="btnsub"
-               @click="handerSub">-</div>
-          <div class="count">{{count}}</div>
-          <div class="btnadd"
-               @click="handerAdd">+</div>
-        </div>
-      </div>
-      <div class="wire"></div>
+          <div class="shop">
+            <div class="count">数量:</div>
+            <div class="shop-count">
+              <div class="btnsub"
+                   @click="handerSub">-</div>
+              <div class="count">{{count}}</div>
+              <div class="btnadd"
+                   @click="handerAdd">+</div>
+            </div>
+          </div>
+          <div class="wire"></div>
+      </scroll>
 
-      <div class="confirm" @click="confirm">确定</div>
+      <div class="confirm"
+           @click="confirm">确定</div>
     </div>
   </div>
 </template>
 
 <script>
+import scroll from 'components/common/scroll/Scroll'
 export default {
   data() {
     return {
@@ -63,8 +67,8 @@ export default {
       size: '',
       currentIndex1: 0,
       currentIndex2: 0,
-      count:1,
-      img:''
+      count: 1,
+      img: '',
     }
   },
   props: {
@@ -74,6 +78,9 @@ export default {
         return {}
       },
     },
+  },
+  components: {
+    scroll,
   },
   methods: {
     //减少商品
@@ -86,7 +93,7 @@ export default {
     },
     //增加商品
     handerAdd() {
-        this.count++
+      this.count++
     },
     detailView(iid) {
       //跳转到详情页
@@ -98,20 +105,19 @@ export default {
     },
     //颜色切换
     colourClick(index, item) {
-        this.currentIndex1 = index
-        this.style = item.name
-        this.styleId = item.styleId
-        
+      this.currentIndex1 = index
+      this.style = item.name
+      this.styleId = item.styleId
     },
     //尺码切换
     sizeClick(index, name) {
-        this.currentIndex2 = index
-        this.size = name
+      this.currentIndex2 = index
+      this.size = name
     },
     // 添加到购物车
-    confirm(){
-        this.$emit('addToCart')
-    }
+    confirm() {
+      this.$emit('addToCart')
+    },
   },
   computed: {
     //处理显示图片
@@ -131,12 +137,12 @@ export default {
       }
     },
     //处理单价
-    handerPrice(){
-        const price = this.nowprice.toString()
-        const beforePrice = price.substr(0,price.length-2)
-        const endPrice = price.substr(price.length-2)
-        return `${beforePrice}.${endPrice}`
-    }
+    handerPrice() {
+      const price = this.nowprice.toString()
+      const beforePrice = price.substr(0, price.length - 2)
+      const endPrice = price.substr(price.length - 2)
+      return `${beforePrice}.${endPrice}`
+    },
   },
 }
 </script>
@@ -156,7 +162,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 65vh;
+  height: 60vh;
   background-color: #fff;
   border-radius: 10px 10px 0 0;
   animation: showShopCart 0.7s ease-out;
@@ -167,12 +173,13 @@ export default {
     height: 0;
   }
   100% {
-    height: 65vh;
+    height: 60vh;
   }
 }
 .message {
   position: relative;
   display: flex;
+  height: 105px;
 }
 .message img {
   position: relative;
@@ -207,6 +214,10 @@ export default {
   border: 1px solid #ccc;
   top: 6px;
   right: 8px;
+}
+.scroll {
+    height: calc(60vh - 105px - 40px);
+    overflow: hidden;
 }
 .colour-info {
   font-size: 12px;

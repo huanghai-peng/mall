@@ -185,6 +185,7 @@ export default {
       product.image = this.$refs.detailShop.img
       product.title = this.goodsInfo.title
       product.desc = this.goodsInfo.desc
+      product.name = this.shop.name
       product.price = this.$refs.detailShop.handerPrice
       product.iid = this.iid
       product.style = this.$refs.detailShop.style

@@ -7,10 +7,13 @@
         <img :src="cart.image" alt="">
     </div>
     <div class="shop-detail">
+        <div class="shop-name">
+            <img src="~assets/img/profile/vip.svg" alt="">
+            <span>{{cart.name}}</span>
+        </div>
         <div class="shop-detail-title" @click="detailView(cart.iid)">{{cart.title}}</div>
         <div class="shop-detail-desc">
-            {{cart.style}};{{cart.size}} 
-            <img src="~assets/img/common/down.png" alt="">
+            颜色："{{cart.style}}",尺码："{{cart.size}}" 
         </div>
         <div class="shop-msg">
             <div class="shop-price" @click="detailView(cart.iid)">￥{{cart.price}}</div>
@@ -67,8 +70,7 @@ export default {
 <style scoped>
 .cart-list-item {
     display: flex;
-    padding: 10px 5px;
-
+    padding: 10px 5px 15px 5px;
     border-bottom: 1px solid #ccc;
 }
 .item-selector {
@@ -79,29 +81,40 @@ export default {
     margin-right: 5px;
   }
 .shop-image img{
-    width: 70px;
-    height: 90px;
+    width: 80px;
+    height: 110px;
     vertical-align: text-bottom;
     border-radius: 5px;
 }
-
+.shop-name {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #000;
+}
+.shop-name img {
+    width: 20px;
+    height: 20px;
+    vertical-align: text-bottom;
+    margin-right: 3px;
+}
 .shop-detail-title {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    font-size: 16px;
-    width:200px;
+    font-size: 14px;
+    width:230px;
 }
 .shop-detail-desc {
-    text-align: center;
+    text-align: left;
+    width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin: 10px 0;
     font-size: 12px;
-    width: 100px;
-    height: 20px;
     line-height: 20px;
-    background-color: #F7F9F6;
-    color: #ccc;
-    padding: 1px 0;
+    color: var(--color-high-text);
 }
 
 .shop-detail-desc img {
